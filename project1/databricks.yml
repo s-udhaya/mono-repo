@@ -1,0 +1,30 @@
+# The name of the bundle. run `databricks bundle schema` to see the full bundle settings schema.
+bundle:
+  name: project1
+
+variables:
+  experiment_name:
+    description: Experiment name for the model training.
+    default: /Users/${workspace.current_user.userName}/${bundle.target}-project1-experiment
+  model_name:
+    description: Model name for the model training.
+    default: project1-model
+  input_table_name:
+    description: Name of the input table.
+    default: customer_features
+
+include:
+  - ../databricks_resources/ml-artifacts-resource.yml
+  - ../databricks_resources/model-workflow-resource.yml
+
+# Deployment Target specific values for workspace
+targets:
+  udhay_mlops_dev:  # UC Catalog Name
+    default: true
+    workspace:
+      host: https://adb-984752964297111.11.azuredatabricks.net
+
+  udhay_mlops_stg:
+    workspace:
+      host: https://adb-3660789876130739.19.azuredatabricks.net
+

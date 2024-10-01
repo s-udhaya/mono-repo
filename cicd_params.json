@@ -1,0 +1,5 @@
+{
+  "input_cloud": "azure",
+  "input_include_feature_store": "no",
+  "input_project_name": "project1"
+}
