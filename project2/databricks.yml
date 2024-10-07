@@ -18,6 +18,11 @@ include:
   - ../databricks_resources/model-workflow-resource.yml
   - ../databricks_resources/model-inference-resource.yml
 
+sync:
+  paths:
+    - ../common_code
+    - .
+
 # Deployment Target specific values for workspace
 targets:
   udhay_mlops_dev:  # UC Catalog Name

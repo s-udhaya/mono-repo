@@ -22,8 +22,7 @@ resources:
         - task_key: inference
           # job_cluster_key: model_training_job_cluster
           notebook_task:
-            notebook_path: ${bundle.name}/steps/inference_step
-            source: git
+            notebook_path: ../${bundle.name}/steps/inference_step.py
             base_parameters:
               env: ${bundle.target}
               input_table_name: ${var.input_table_name}
@@ -31,12 +30,6 @@ resources:
               model_name: ${bundle.target}.project1.${var.model_name}
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
               git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
-
-      git_source:
-        git_provider: "gitHub"
-        git_url: "https://github.com/s-udhaya/mono-repo.git"
-        git_commit: ${bundle.git.commit}
-
       schedule:
         quartz_cron_expression: "0 0 9 * * ?" # daily at 9am
         timezone_id: UTC
