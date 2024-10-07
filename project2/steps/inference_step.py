@@ -4,7 +4,7 @@
 
 # COMMAND ----------
 
-from feature_engineering import feature_generator
+from inference import inference
 
 ##############################################################################################
 #                             Databricks Widgets Creation
@@ -29,14 +29,14 @@ model_name = dbutils.widgets.get("model_name")
 
 # COMMAND ----------
 
-training_params = {
+inference_params = {
     "env": env,
     "input_table_name": input_table_name,
     "model_name": model_name,
     "experiment_name": experiment_name,
 }
-print(training_params)
+print(inference_params)
 
 # COMMAND ----------
 
-feature_generator.run_feature_engineering(training_params)
+inference.run_inference(inference_params)
