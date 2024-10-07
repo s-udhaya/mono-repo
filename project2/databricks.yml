@@ -17,6 +17,24 @@ include:
   - ../databricks_resources/ml-artifacts-resource.yml
   - ../databricks_resources/model-workflow-resource.yml
   - ../databricks_resources/model-inference-resource.yml
+  - ./databricks_resources/model-workflow-resource.yml
+
+updated_model_training_job: &updated_model_training_job
+  model_training_job:
+    tasks:
+      - task_key: DummyTask
+        # job_cluster_key: model_training_job_cluster
+        depends_on:
+          - task_key: ModelValidation
+        notebook_task:
+          notebook_path: ../${bundle.name}/steps/validation_step.py
+          base_parameters:
+            env: ${bundle.target}
+            experiment_name: ${var.experiment_name}
+            model_name: ${bundle.target}.project1.${var.model_name}
+            run_mode: dry_run
+            git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
+
 
 # Deployment Target specific values for workspace
 targets:
@@ -24,6 +42,9 @@ targets:
     default: true
     workspace:
       host: https://adb-984752964297111.11.azuredatabricks.net
+    resources:
+      jobs:
+        <<: *updated_model_training_job
 
   udhay_mlops_stg:
     workspace:

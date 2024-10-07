@@ -1,0 +1,18 @@
+
+#resources:
+#  jobs:
+#    model_training_job:
+#      name: ${bundle.target}-${bundle.name}-model-training-job
+#      tasks:
+#        - task_key: DummyTask
+#          # job_cluster_key: model_training_job_cluster
+#          depends_on:
+#            - task_key: ModelValidation
+#          notebook_task:
+#            notebook_path: ../${bundle.name}/steps/validation_step.py
+#            base_parameters:
+#              env: ${bundle.target}
+#              experiment_name: ${var.experiment_name}
+#              model_name: ${bundle.target}.project1.${var.model_name}
+#              run_mode: dry_run
+#              git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
